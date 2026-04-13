@@ -1,0 +1,83 @@
+{
+  "name": "auto-pull",
+  "displayName": "Auto Pull",
+  "description": "Automatically pulls specified branches at regular intervals to keep them up to date",
+  "version": "0.1.0",
+  "publisher": "auto-pull",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "workspaceContains:.git"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "autoPull.start",
+        "title": "Auto Pull: Start"
+      },
+      {
+        "command": "autoPull.stop",
+        "title": "Auto Pull: Stop"
+      },
+      {
+        "command": "autoPull.pullNow",
+        "title": "Auto Pull: Pull Now"
+      },
+      {
+        "command": "autoPull.addBranch",
+        "title": "Auto Pull: Add Branch"
+      },
+      {
+        "command": "autoPull.removeBranch",
+        "title": "Auto Pull: Remove Branch"
+      }
+    ],
+    "configuration": {
+      "title": "Auto Pull",
+      "properties": {
+        "autoPull.branches": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            "master"
+          ],
+          "description": "List of branch names to auto-pull from origin"
+        },
+        "autoPull.intervalMinutes": {
+          "type": "number",
+          "default": 5,
+          "minimum": 1,
+          "description": "Interval in minutes between auto-pull cycles"
+        },
+        "autoPull.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Whether auto-pull starts automatically when a workspace with a Git repository is opened"
+        },
+        "autoPull.pullCurrentBranch": {
+          "type": "boolean",
+          "default": false,
+          "description": "If true, also pulls the currently checked-out branch (using git pull --ff-only). Only works when the working tree is clean."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "lint": "eslint src --ext ts"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/vscode": "^1.85.0",
+    "typescript": "^5.3.3"
+  }
+}
