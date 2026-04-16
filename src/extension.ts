@@ -13,12 +13,12 @@ export function activate(context: vscode.ExtensionContext): void {
     context.subscriptions.push(
         vscode.commands.registerCommand('gitKeepFresh.start', () => {
             autoPuller!.start();
-            vscode.window.showInformationMessage('Git Keep Fresh: Started.');
+            vscode.window.showInformationMessage('Git Keep Fresh: Started! Your branches will stay fresh.');
         }),
 
         vscode.commands.registerCommand('gitKeepFresh.stop', () => {
             autoPuller!.stop();
-            vscode.window.showInformationMessage('Git Keep Fresh: Stopped.');
+            vscode.window.showInformationMessage('Git Keep Fresh: Stopped. Branches are on their own now.');
         }),
 
         vscode.commands.registerCommand('gitKeepFresh.pullNow', () => {
@@ -41,19 +41,19 @@ export function activate(context: vscode.ExtensionContext): void {
             const config = vscode.workspace.getConfiguration('gitKeepFresh');
             const branches: string[] = [...config.get<string[]>('branches', ['master'])];
             if (branches.includes(branch)) {
-                vscode.window.showInformationMessage(`Git Keep Fresh: "${branch}" is already in the list.`);
+                vscode.window.showInformationMessage(`Git Keep Fresh: "${branch}" is already on the list!`);
                 return;
             }
             branches.push(branch);
             await config.update('branches', branches, vscode.ConfigurationTarget.Workspace);
-            vscode.window.showInformationMessage(`Git Keep Fresh: Added "${branch}".`);
+            vscode.window.showInformationMessage(`Git Keep Fresh: Now watching "${branch}".`);
         }),
 
         vscode.commands.registerCommand('gitKeepFresh.removeBranch', async () => {
             const config = vscode.workspace.getConfiguration('gitKeepFresh');
             const branches: string[] = [...config.get<string[]>('branches', ['master'])];
             if (branches.length === 0) {
-                vscode.window.showInformationMessage('Git Keep Fresh: No branches configured.');
+                vscode.window.showInformationMessage('Git Keep Fresh: No branches configured yet.');
                 return;
             }
 
@@ -64,7 +64,7 @@ export function activate(context: vscode.ExtensionContext): void {
 
             const updated = branches.filter(b => b !== selected);
             await config.update('branches', updated, vscode.ConfigurationTarget.Workspace);
-            vscode.window.showInformationMessage(`Git Keep Fresh: Removed "${selected}".`);
+            vscode.window.showInformationMessage(`Git Keep Fresh: Stopped watching "${selected}".`);
         }),
 
         { dispose: () => autoPuller?.dispose() },

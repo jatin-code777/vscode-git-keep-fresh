@@ -57,14 +57,14 @@ export class AutoPuller {
     async pullNow(silent: boolean = false): Promise<PullResult[]> {
         if (this.isPulling) {
             if (!silent) {
-                vscode.window.showWarningMessage('Git Keep Fresh: A pull operation is already in progress.');
+                vscode.window.showWarningMessage('Git Keep Fresh: Hold on, a pull is already running.');
             }
             return [];
         }
 
         const cwd = this.getWorkspaceRoot();
         if (!cwd) {
-            const msg = 'Git Keep Fresh: No workspace folder open.';
+            const msg = 'Git Keep Fresh: No workspace folder open. Nothing to pull!';
             if (!silent) { vscode.window.showWarningMessage(msg); }
             this.log(msg);
             return [];
@@ -72,7 +72,7 @@ export class AutoPuller {
 
         const repoRoot = await getRepoRoot(cwd);
         if (!repoRoot) {
-            const msg = 'Git Keep Fresh: Current workspace is not a Git repository.';
+            const msg = 'Git Keep Fresh: This workspace doesn\'t look like a Git repo.';
             if (!silent) { vscode.window.showWarningMessage(msg); }
             this.log(msg);
             return [];
@@ -89,7 +89,7 @@ export class AutoPuller {
         try {
             // Check if a git operation is in progress
             if (await isGitOperationInProgress(repoRoot)) {
-                const msg = 'Git Keep Fresh: Git operation in progress (merge/rebase/cherry-pick). Skipping.';
+                const msg = 'Git Keep Fresh: A git operation is in progress (merge/rebase/cherry-pick). Skipping this round.';
                 this.log(msg);
                 if (!silent) { vscode.window.showWarningMessage(msg); }
                 return [];
@@ -111,7 +111,7 @@ export class AutoPuller {
 
             // Log results
             for (const r of results) {
-                this.log(`  ${r.branch}: ${r.status} — ${r.detail}`);
+                this.log(`  ${r.branch}: ${r.status} - ${r.detail}`);
             }
 
             // Show summary for manual pulls
@@ -122,30 +122,30 @@ export class AutoPuller {
 
                 if (errors.length > 0) {
                     vscode.window.showWarningMessage(
-                        `Git Keep Fresh: ${errors.length} error(s). Check Output panel for details.`
+                        `Git Keep Fresh: ${errors.length} error(s). Check the Output panel for details.`
                     );
                 } else if (updated.length > 0) {
                     vscode.window.showInformationMessage(
-                        `Git Keep Fresh: Updated ${updated.map(r => r.branch).join(', ')}.`
+                        `Git Keep Fresh: Freshened up ${updated.map(r => r.branch).join(', ')}!`
                     );
                 } else if (skipped.length > 0) {
                     vscode.window.showInformationMessage(
-                        `Git Keep Fresh: All branches up to date or skipped.`
+                        `Git Keep Fresh: Everything looks good. All branches up to date or skipped.`
                     );
                 } else {
-                    vscode.window.showInformationMessage('Git Keep Fresh: All branches up to date.');
+                    vscode.window.showInformationMessage('Git Keep Fresh: All branches already fresh!');
                 }
             } else {
                 // For scheduled pulls, only show warnings on errors
                 const errors = results.filter(r => r.status === 'error');
                 if (errors.length > 0) {
                     vscode.window.showWarningMessage(
-                        `Git Keep Fresh: Failed to update ${errors.map(r => r.branch).join(', ')}. Check Output panel.`
+                        `Git Keep Fresh: Couldn't update ${errors.map(r => r.branch).join(', ')}. Check the Output panel.`
                     );
                 }
             }
         } catch (err: any) {
-            const msg = `Git Keep Fresh: Fetch failed — ${err.message}`;
+            const msg = `Git Keep Fresh: Fetch failed - ${err.message}`;
             this.log(msg);
             if (!silent) {
                 vscode.window.showErrorMessage(msg);
