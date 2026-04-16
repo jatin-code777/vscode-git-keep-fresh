@@ -10,11 +10,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/thephotonforge/auto-pull"
+    "url": "https://github.com/jatin-code777/auto-pull"
   },
-  "homepage": "https://github.com/thephotonforge/auto-pull#readme",
+  "homepage": "https://github.com/jatin-code777/auto-pull#readme",
   "bugs": {
-    "url": "https://github.com/thephotonforge/auto-pull/issues"
+    "url": "https://github.com/jatin-code777/auto-pull/issues"
   },
   "engines": {
     "vscode": "^1.85.0"
