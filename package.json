@@ -19,9 +19,16 @@
   "engines": {
     "vscode": "^1.85.0"
   },
+  "icon": "icon.png",
+  "galleryBanner": {
+    "color": "#0EA5E9",
+    "theme": "dark"
+  },
   "categories": [
+    "SCM Providers",
     "Other"
   ],
+  "qna": "marketplace",
   "keywords": [
     "git",
     "pull",
