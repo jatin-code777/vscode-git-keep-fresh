@@ -1,7 +1,7 @@
 {
-  "name": "auto-pull",
-  "displayName": "Auto Pull",
-  "description": "Automatically pulls specified branches at regular intervals to keep them up to date",
+  "name": "git-keep-fresh",
+  "displayName": "Git Keep Fresh",
+  "description": "Keeps your local branches fresh by auto-pulling from origin at regular intervals — especially branches you don't work on directly",
   "version": "0.1.0",
   "publisher": "thephotonforge",
   "author": {
@@ -10,11 +10,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/jatin-code777/auto-pull"
+    "url": "https://github.com/jatin-code777/git-keep-fresh"
   },
-  "homepage": "https://github.com/jatin-code777/auto-pull#readme",
+  "homepage": "https://github.com/jatin-code777/git-keep-fresh#readme",
   "bugs": {
-    "url": "https://github.com/jatin-code777/auto-pull/issues"
+    "url": "https://github.com/jatin-code777/git-keep-fresh/issues"
   },
   "engines": {
     "vscode": "^1.85.0"
@@ -28,7 +28,9 @@
     "auto",
     "sync",
     "branch",
-    "fetch"
+    "fetch",
+    "keep fresh",
+    "background"
   ],
   "activationEvents": [
     "workspaceContains:.git"
@@ -37,30 +39,30 @@
   "contributes": {
     "commands": [
       {
-        "command": "autoPull.start",
-        "title": "Auto Pull: Start"
+        "command": "gitKeepFresh.start",
+        "title": "Git Keep Fresh: Start"
       },
       {
-        "command": "autoPull.stop",
-        "title": "Auto Pull: Stop"
+        "command": "gitKeepFresh.stop",
+        "title": "Git Keep Fresh: Stop"
       },
       {
-        "command": "autoPull.pullNow",
-        "title": "Auto Pull: Pull Now"
+        "command": "gitKeepFresh.pullNow",
+        "title": "Git Keep Fresh: Pull Now"
       },
       {
-        "command": "autoPull.addBranch",
-        "title": "Auto Pull: Add Branch"
+        "command": "gitKeepFresh.addBranch",
+        "title": "Git Keep Fresh: Add Branch"
       },
       {
-        "command": "autoPull.removeBranch",
-        "title": "Auto Pull: Remove Branch"
+        "command": "gitKeepFresh.removeBranch",
+        "title": "Git Keep Fresh: Remove Branch"
       }
     ],
     "configuration": {
-      "title": "Auto Pull",
+      "title": "Git Keep Fresh",
       "properties": {
-        "autoPull.branches": {
+        "gitKeepFresh.branches": {
           "type": "array",
           "items": {
             "type": "string"
@@ -68,20 +70,20 @@
           "default": [
             "master"
           ],
-          "description": "List of branch names to auto-pull from origin"
+          "description": "List of branch names to keep fresh from origin"
         },
-        "autoPull.intervalMinutes": {
+        "gitKeepFresh.intervalMinutes": {
           "type": "number",
           "default": 5,
           "minimum": 1,
-          "description": "Interval in minutes between auto-pull cycles"
+          "description": "Interval in minutes between pull cycles"
         },
-        "autoPull.enabled": {
+        "gitKeepFresh.enabled": {
           "type": "boolean",
           "default": true,
-          "description": "Whether auto-pull starts automatically when a workspace with a Git repository is opened"
+          "description": "Whether Git Keep Fresh starts automatically when a workspace with a Git repository is opened"
         },
-        "autoPull.pullCurrentBranch": {
+        "gitKeepFresh.pullCurrentBranch": {
           "type": "boolean",
           "default": false,
           "description": "If true, also pulls the currently checked-out branch (using git pull --ff-only). Only works when the working tree is clean."

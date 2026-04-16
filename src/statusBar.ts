@@ -5,31 +5,31 @@ export class StatusBar {
 
     constructor() {
         this.item = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 100);
-        this.item.command = 'autoPull.pullNow';
+        this.item.command = 'gitKeepFresh.pullNow';
     }
 
     setRunning(lastPull?: Date): void {
         const timeStr = lastPull ? this.formatTime(lastPull) : 'never';
-        this.item.text = `$(sync~spin) Auto Pull: ON`;
-        this.item.tooltip = `Auto Pull is active. Last pull: ${timeStr}. Click to pull now.`;
+        this.item.text = `$(sync~spin) Keep Fresh: ON`;
+        this.item.tooltip = `Git Keep Fresh is active. Last pull: ${timeStr}. Click to pull now.`;
         this.item.show();
     }
 
     setStopped(): void {
-        this.item.text = `$(sync-ignored) Auto Pull: OFF`;
-        this.item.tooltip = 'Auto Pull is stopped. Click to pull now.';
+        this.item.text = `$(sync-ignored) Keep Fresh: OFF`;
+        this.item.tooltip = 'Git Keep Fresh is stopped. Click to pull now.';
         this.item.show();
     }
 
     setPulling(): void {
-        this.item.text = `$(loading~spin) Auto Pull: pulling...`;
+        this.item.text = `$(loading~spin) Keep Fresh: pulling...`;
         this.item.tooltip = 'Pulling branches...';
         this.item.show();
     }
 
     setLastPull(date: Date): void {
-        this.item.text = `$(check) Auto Pull: ${this.formatTime(date)}`;
-        this.item.tooltip = `Auto Pull is active. Last pull: ${this.formatTime(date)}. Click to pull now.`;
+        this.item.text = `$(check) Keep Fresh: ${this.formatTime(date)}`;
+        this.item.tooltip = `Git Keep Fresh is active. Last pull: ${this.formatTime(date)}. Click to pull now.`;
         this.item.show();
     }
 

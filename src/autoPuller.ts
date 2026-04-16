@@ -41,7 +41,7 @@ export class AutoPuller {
         this.isRunning = true;
         this.statusBar.setRunning(this.lastPull ?? undefined);
         this.scheduleNext();
-        this.log('Auto Pull started');
+        this.log('Git Keep Fresh started');
     }
 
     stop(): void {
@@ -51,20 +51,20 @@ export class AutoPuller {
             this.timer = null;
         }
         this.statusBar.setStopped();
-        this.log('Auto Pull stopped');
+        this.log('Git Keep Fresh stopped');
     }
 
     async pullNow(silent: boolean = false): Promise<PullResult[]> {
         if (this.isPulling) {
             if (!silent) {
-                vscode.window.showWarningMessage('Auto Pull: A pull operation is already in progress.');
+                vscode.window.showWarningMessage('Git Keep Fresh: A pull operation is already in progress.');
             }
             return [];
         }
 
         const cwd = this.getWorkspaceRoot();
         if (!cwd) {
-            const msg = 'Auto Pull: No workspace folder open.';
+            const msg = 'Git Keep Fresh: No workspace folder open.';
             if (!silent) { vscode.window.showWarningMessage(msg); }
             this.log(msg);
             return [];
@@ -72,13 +72,13 @@ export class AutoPuller {
 
         const repoRoot = await getRepoRoot(cwd);
         if (!repoRoot) {
-            const msg = 'Auto Pull: Current workspace is not a Git repository.';
+            const msg = 'Git Keep Fresh: Current workspace is not a Git repository.';
             if (!silent) { vscode.window.showWarningMessage(msg); }
             this.log(msg);
             return [];
         }
 
-        const config = vscode.workspace.getConfiguration('autoPull');
+        const config = vscode.workspace.getConfiguration('gitKeepFresh');
         const branches: string[] = config.get('branches', ['master']);
         const pullCurrent: boolean = config.get('pullCurrentBranch', false);
 
@@ -89,7 +89,7 @@ export class AutoPuller {
         try {
             // Check if a git operation is in progress
             if (await isGitOperationInProgress(repoRoot)) {
-                const msg = 'Auto Pull: Git operation in progress (merge/rebase/cherry-pick). Skipping.';
+                const msg = 'Git Keep Fresh: Git operation in progress (merge/rebase/cherry-pick). Skipping.';
                 this.log(msg);
                 if (!silent) { vscode.window.showWarningMessage(msg); }
                 return [];
@@ -122,30 +122,30 @@ export class AutoPuller {
 
                 if (errors.length > 0) {
                     vscode.window.showWarningMessage(
-                        `Auto Pull: ${errors.length} error(s). Check Output panel for details.`
+                        `Git Keep Fresh: ${errors.length} error(s). Check Output panel for details.`
                     );
                 } else if (updated.length > 0) {
                     vscode.window.showInformationMessage(
-                        `Auto Pull: Updated ${updated.map(r => r.branch).join(', ')}.`
+                        `Git Keep Fresh: Updated ${updated.map(r => r.branch).join(', ')}.`
                     );
                 } else if (skipped.length > 0) {
                     vscode.window.showInformationMessage(
-                        `Auto Pull: All branches up to date or skipped.`
+                        `Git Keep Fresh: All branches up to date or skipped.`
                     );
                 } else {
-                    vscode.window.showInformationMessage('Auto Pull: All branches up to date.');
+                    vscode.window.showInformationMessage('Git Keep Fresh: All branches up to date.');
                 }
             } else {
                 // For scheduled pulls, only show warnings on errors
                 const errors = results.filter(r => r.status === 'error');
                 if (errors.length > 0) {
                     vscode.window.showWarningMessage(
-                        `Auto Pull: Failed to update ${errors.map(r => r.branch).join(', ')}. Check Output panel.`
+                        `Git Keep Fresh: Failed to update ${errors.map(r => r.branch).join(', ')}. Check Output panel.`
                     );
                 }
             }
         } catch (err: any) {
-            const msg = `Auto Pull: Fetch failed — ${err.message}`;
+            const msg = `Git Keep Fresh: Fetch failed — ${err.message}`;
             this.log(msg);
             if (!silent) {
                 vscode.window.showErrorMessage(msg);
@@ -173,7 +173,7 @@ export class AutoPuller {
                 return {
                     branch,
                     status: 'skipped',
-                    detail: 'Currently checked out (set autoPull.pullCurrentBranch to enable)',
+                    detail: 'Currently checked out (set gitKeepFresh.pullCurrentBranch to enable)',
                 };
             }
 
@@ -218,7 +218,7 @@ export class AutoPuller {
     private scheduleNext(): void {
         if (!this.isRunning) { return; }
 
-        const config = vscode.workspace.getConfiguration('autoPull');
+        const config = vscode.workspace.getConfiguration('gitKeepFresh');
         const intervalMin = Math.max(1, config.get<number>('intervalMinutes', 5));
         const intervalMs = intervalMin * 60 * 1000;
 

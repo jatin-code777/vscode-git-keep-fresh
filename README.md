@@ -1,34 +1,34 @@
-# Auto Pull — VS Code Extension
+# Git Keep Fresh — VS Code Extension
 
-Automatically keeps your local branches up to date by pulling from `origin` at regular intervals.
+Keeps your local branches fresh by auto-pulling from origin at regular intervals — especially branches you don't work on directly.
 
 ## Features
 
-- **Auto-pull on interval** — fetches and fast-forwards configured branches every N minutes
+- **Background sync** — fetches and fast-forwards configured branches every N minutes
 - **Non-disruptive** — updates branches *without* checking them out (using ref updates for non-active branches)
 - **Safe** — only fast-forwards; skips diverged branches and warns you
 - **Current branch support** — optionally pulls the active branch with `--ff-only` (only when working tree is clean)
-- **Status bar** — shows auto-pull status and last pull time
-- **Output panel** — detailed logs in the "Auto Pull" output channel
+- **Status bar** — shows sync status and last pull time
+- **Output panel** — detailed logs in the "Git Keep Fresh" output channel
 
 ## Settings
 
 | Setting | Default | Description |
 |---|---|---|
-| `autoPull.enabled` | `true` | Auto-start when a Git workspace is opened |
-| `autoPull.branches` | `["master"]` | Branch names to keep up to date |
-| `autoPull.intervalMinutes` | `5` | Minutes between pull cycles (minimum: 1) |
-| `autoPull.pullCurrentBranch` | `false` | Also pull the currently checked-out branch (ff-only, clean tree only) |
+| `gitKeepFresh.enabled` | `true` | Auto-start when a Git workspace is opened |
+| `gitKeepFresh.branches` | `["master"]` | Branch names to keep fresh |
+| `gitKeepFresh.intervalMinutes` | `5` | Minutes between pull cycles (minimum: 1) |
+| `gitKeepFresh.pullCurrentBranch` | `false` | Also pull the currently checked-out branch (ff-only, clean tree only) |
 
 ## Commands
 
 | Command | Description |
 |---|---|
-| `Auto Pull: Start` | Start the auto-pull timer |
-| `Auto Pull: Stop` | Stop auto-pulling |
-| `Auto Pull: Pull Now` | Trigger an immediate pull cycle |
-| `Auto Pull: Add Branch` | Add a branch to the watch list |
-| `Auto Pull: Remove Branch` | Remove a branch from the watch list |
+| `Git Keep Fresh: Start` | Start the auto-pull timer |
+| `Git Keep Fresh: Stop` | Stop pulling |
+| `Git Keep Fresh: Pull Now` | Trigger an immediate pull cycle |
+| `Git Keep Fresh: Add Branch` | Add a branch to the watch list |
+| `Git Keep Fresh: Remove Branch` | Remove a branch from the watch list |
 
 ## How It Works
 
