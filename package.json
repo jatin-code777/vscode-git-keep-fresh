@@ -3,12 +3,32 @@
   "displayName": "Auto Pull",
   "description": "Automatically pulls specified branches at regular intervals to keep them up to date",
   "version": "0.1.0",
-  "publisher": "auto-pull",
+  "publisher": "thephotonforge",
+  "author": {
+    "name": "Jatin Sharma"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thephotonforge/auto-pull"
+  },
+  "homepage": "https://github.com/thephotonforge/auto-pull#readme",
+  "bugs": {
+    "url": "https://github.com/thephotonforge/auto-pull/issues"
+  },
   "engines": {
     "vscode": "^1.85.0"
   },
   "categories": [
     "Other"
+  ],
+  "keywords": [
+    "git",
+    "pull",
+    "auto",
+    "sync",
+    "branch",
+    "fetch"
   ],
   "activationEvents": [
     "workspaceContains:.git"
