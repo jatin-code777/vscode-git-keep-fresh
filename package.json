@@ -75,9 +75,14 @@
             "type": "string"
           },
           "default": [
-            "master"
+            "master",
+            "main",
+            "develop",
+            "dev",
+            "staging",
+            "release"
           ],
-          "description": "List of branch names to keep fresh from origin"
+          "description": "Branches to keep fresh from origin. Non-existent branches are quietly skipped"
         },
         "gitKeepFresh.intervalMinutes": {
           "type": "number",

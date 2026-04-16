@@ -10,6 +10,7 @@ import {
     getRepoRoot,
 } from './gitUtils';
 import { StatusBar } from './statusBar';
+import { DEFAULT_BRANCHES, DEFAULT_INTERVAL_MINUTES } from './constants';
 
 export interface PullResult {
     branch: string;
@@ -79,7 +80,7 @@ export class AutoPuller {
         }
 
         const config = vscode.workspace.getConfiguration('gitKeepFresh');
-        const branches: string[] = config.get('branches', ['master']);
+        const branches: string[] = config.get('branches', DEFAULT_BRANCHES);
         const pullCurrent: boolean = config.get('pullCurrentBranch', false);
 
         this.isPulling = true;
@@ -219,7 +220,7 @@ export class AutoPuller {
         if (!this.isRunning) { return; }
 
         const config = vscode.workspace.getConfiguration('gitKeepFresh');
-        const intervalMin = Math.max(1, config.get<number>('intervalMinutes', 5));
+        const intervalMin = Math.max(1, config.get<number>('intervalMinutes', DEFAULT_INTERVAL_MINUTES));
         const intervalMs = intervalMin * 60 * 1000;
 
         this.timer = setTimeout(async () => {

@@ -2,6 +2,7 @@ import * as vscode from 'vscode';
 import { AutoPuller } from './autoPuller';
 import { StatusBar } from './statusBar';
 import { isValidBranchName } from './gitUtils';
+import { DEFAULT_BRANCHES } from './constants';
 
 let autoPuller: AutoPuller | undefined;
 
@@ -39,7 +40,7 @@ export function activate(context: vscode.ExtensionContext): void {
             if (!branch) { return; }
 
             const config = vscode.workspace.getConfiguration('gitKeepFresh');
-            const branches: string[] = [...config.get<string[]>('branches', ['master'])];
+            const branches: string[] = [...config.get<string[]>('branches', DEFAULT_BRANCHES)];
             if (branches.includes(branch)) {
                 vscode.window.showInformationMessage(`Git Keep Fresh: "${branch}" is already on the list!`);
                 return;
@@ -51,7 +52,7 @@ export function activate(context: vscode.ExtensionContext): void {
 
         vscode.commands.registerCommand('gitKeepFresh.removeBranch', async () => {
             const config = vscode.workspace.getConfiguration('gitKeepFresh');
-            const branches: string[] = [...config.get<string[]>('branches', ['master'])];
+            const branches: string[] = [...config.get<string[]>('branches', DEFAULT_BRANCHES)];
             if (branches.length === 0) {
                 vscode.window.showInformationMessage('Git Keep Fresh: No branches configured yet.');
                 return;

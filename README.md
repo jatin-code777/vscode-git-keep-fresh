@@ -18,7 +18,7 @@ Git Keep Fresh quietly pulls your branches in the background so they stay up to 
 | Setting | Default | Description |
 |---|---|---|
 | `gitKeepFresh.enabled` | `true` | Auto-start when a Git workspace is opened |
-| `gitKeepFresh.branches` | `["master"]` | Branch names to keep fresh |
+| `gitKeepFresh.branches` | `["master", "main", "develop", "dev", "staging", "release"]` | Branches to keep fresh (non-existent ones are quietly skipped) |
 | `gitKeepFresh.intervalMinutes` | `5` | Minutes between pull cycles (minimum: 1) |
 | `gitKeepFresh.pullCurrentBranch` | `false` | Also pull the currently checked-out branch (ff-only, clean tree only) |
 
