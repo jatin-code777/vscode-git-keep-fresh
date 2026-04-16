@@ -10,11 +10,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/jatin-code777/git-keep-fresh"
+    "url": "https://github.com/jatin-code777/vscode-git-keep-fresh"
   },
-  "homepage": "https://github.com/jatin-code777/git-keep-fresh#readme",
+  "homepage": "https://github.com/jatin-code777/vscode-git-keep-fresh#readme",
   "bugs": {
-    "url": "https://github.com/jatin-code777/git-keep-fresh/issues"
+    "url": "https://github.com/jatin-code777/vscode-git-keep-fresh/issues"
   },
   "engines": {
     "vscode": "^1.85.0"
