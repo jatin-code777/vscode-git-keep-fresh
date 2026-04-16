@@ -2,7 +2,7 @@
   "name": "git-keep-fresh",
   "displayName": "Git Keep Fresh",
   "description": "Keeps your local branches fresh by auto-pulling from origin at regular intervals — especially branches you don't work on directly",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "publisher": "thephotonforge",
   "author": {
     "name": "Jatin Sharma"
