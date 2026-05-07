@@ -9,6 +9,17 @@
         "isDefault": true
       },
       "problemMatcher": ["$tsc"]
+    },
+    {
+      "label": "Publish Extension",
+      "type": "npm",
+      "script": "publish",
+      "group": "none",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": []
     }
   ]
 }
