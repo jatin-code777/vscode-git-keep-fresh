@@ -16,7 +16,9 @@ function runGit(args: string[], cwd: string): Promise<GitResult> {
             env: { ...process.env, GIT_TERMINAL_PROMPT: '0' },
         }, (error, stdout, stderr) => {
             if (error) {
-                reject(new Error(`git ${args.join(' ')} failed: ${stderr || error.message}`));
+                // Include both stderr and the error message for better diagnostics
+                const detail = stderr ? stderr.trim() : error.message;
+                reject(new Error(`git ${args.join(' ')} failed: ${detail}`));
             } else {
                 resolve({ stdout: stdout.trim(), stderr: stderr.trim() });
             }
@@ -53,7 +55,7 @@ export async function isGitOperationInProgress(cwd: string): Promise<boolean> {
 
     const fs = await import('fs');
     const gitDir = path.join(repoRoot, '.git');
-    const markers = ['MERGE_HEAD', 'REBASE_HEAD', 'CHERRY_PICK_HEAD', 'BISECT_LOG', 'rebase-merge', 'rebase-apply'];
+    const markers = ['MERGE_HEAD', 'CHERRY_PICK_HEAD', 'BISECT_LOG', 'rebase-merge', 'rebase-apply'];
 
     for (const marker of markers) {
         try {
