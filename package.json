@@ -108,7 +108,7 @@
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
     "lint": "eslint src --ext ts",
-    "publish": "vsce publish patch --allow-missing-repository && git push --follow-tags"
+    "publish": "npx @vscode/vsce publish patch --allow-missing-repository && git push --follow-tags"
   },
   "devDependencies": {
     "@types/node": "^20.11.0",
